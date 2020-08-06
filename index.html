@@ -1,0 +1,91 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <p>Hello world! This is HTML5 Boilerplate.</p>
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/vendor/jquery-3.5.1.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/functoric.js"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+
+  <script>
+    document
+    var videos = [
+      "img/V0-Intro.webm",
+      //"https://github.com/Razamut/Functoric/blob/master/videos/V0-Intro.webm?raw=1",
+      "img/V1-TopSpaceDef.webm",
+      "img/V2-TopSpaceCovering.webm",
+      "img/V3-TopSpaceParacompact.webm",
+      "img/V4-TopSpaceHomeomorphism.webm",
+      "img/V5-ManifoldDefinition.webm"
+    ];
+    count = 0;
+    var media = $("<video>");
+    media.attr("src", videos[count])
+    var videoPlayer = new VideoPlayer(media.get(0))
+    var play = $("<button>");
+    play.text("Play Me!");
+    var stop = $("<button>");
+    stop.text("Stop Me!");
+    play.show();
+    play.on("click", function (ev) {
+      var videoToPlay = videos[count++ % videos.length];
+      console.log("Playing: ", videoToPlay);
+      videoPlayer.play(videoToPlay, 5000, () => {
+        console.log(media.currentTime);
+      });
+
+    });
+    stop.on("click", function (ev) {
+      videoPlayer.stop()
+    });
+    var body = $("body")
+    body.append(media)
+    body.append(play)
+    body.append(stop)
+
+    var Functoric = getFunctoric(videos, videoPlayer);
+
+
+  </script>
+
+  <input type="button" value="Start Lecture!" onclick="Functoric.start(Functoric.lectures.lecture0)"/>
+  <div id="lecture-title"></div>
+  <div id="player"></div>
+  <div id="question-prompt"></div>
+  <form id="question-answers"></form>
+  <input type="button" value="Answer Question" onclick="Functoric.onQuestionAnswered()"/>
+</body>
+
+</html>
