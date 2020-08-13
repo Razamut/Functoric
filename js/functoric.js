@@ -85,10 +85,10 @@ function getFunctoric(videos, videoPlayer) {
         return;
       }
       let nextNodeId = this.lectureState.node.next[answer];
-      this.advance(nextNodeId);
+      if(nextNodeId == null) alert("You have finished this lecture - congratulations!")
+      else this.advance(nextNodeId);
     },
     createPlayer: function () {
-      // TODO: call sebastian's code
       return videoPlayer;
     },
     lectures: {
