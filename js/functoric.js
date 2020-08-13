@@ -74,6 +74,7 @@ function getFunctoric(videos, videoPlayer) {
         return;
       }
       let nextNodeId = this.lectureState.node.next;
+      if (nextNodeId == null) alert("You have finished this lecture - congratulations!")
       this.advance(nextNodeId);
     },
     onQuestionAnswered: function () {
@@ -85,7 +86,7 @@ function getFunctoric(videos, videoPlayer) {
         return;
       }
       let nextNodeId = this.lectureState.node.next[answer];
-      if(nextNodeId == null) alert("You have finished this lecture - congratulations!")
+      if (nextNodeId == null) alert("You have finished this lecture - congratulations!")
       else this.advance(nextNodeId);
     },
     createPlayer: function () {
@@ -111,8 +112,8 @@ function getFunctoric(videos, videoPlayer) {
               "d": "4"
             },
             next: {
-              "a": "Q0.1",
-              "b": "V1",
+              "a": "V1",
+              "b": "Q0.1",
               "c": "V1",
               "d": "V1"
             }
