@@ -123,8 +123,8 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
               "d": "4"
             },
             next: {
-              "a": "Q0.1",
-              "b": "V1",
+              "a": "V1",
+              "b": "Q0.1",
               "c": "V1",
               "d": "V1"
             }
@@ -138,9 +138,9 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
               "c": "Neither"
             },
             next: {
-              "a": "V1",
+              "a": "Q0.2",
               "b": "V1",
-              "c": "Q0.2",
+              "c": "V1",
             }
           },
           "Q0.2": {
@@ -155,7 +155,7 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
             next: {
               "a": "V1",
               "b": "V1",
-              "c": "V2",
+              "c": "Q1.0",
               "d": "V1",
             }
           },
@@ -172,8 +172,8 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
               "b": "No",
             },
             next: {
-              "a": "V2",
-              "b": "Q1.1",
+              "a": "Q1.1",
+              "b": "V2",
             }
           },
           "Q1.1": {
@@ -189,7 +189,7 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
               "a": "V2",
               "b": "V2",
               "c": "V2",
-              "d": "V3",
+              "d": "Q2.0",
             }
           },
           "V2": {
@@ -209,7 +209,7 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
             next: {
               "a": "V3",
               "b": "V3",
-              "c": "V4",
+              "c": "Q3.0",
               "d": "V3",
             }
           },
@@ -242,13 +242,18 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
               "b": "Yes",
             },
             next: {
-              "a": "Q3.1",
-              "b": "V4",
+              "a": "V4",
+              "b": "V5",
             }
           },
           "V4": {
             type: "Video",
             url: videos[4],
+            next: null
+          },
+          "V5": {
+            type: "Video",
+            url: videos[5],
             next: null
           },
         }
