@@ -85,7 +85,8 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
         return;
       }
       let nextNodeId = this.lectureState.node.next;
-      this.advance(nextNodeId);
+      if (nextNodeId == null) alert("You have finished this lecture - congratulations!")
+      else this.advance(nextNodeId);
     },
     onQuestionAnswered: function () {
       // TODO: do some sort of consistency check here
@@ -96,7 +97,8 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
         return;
       }
       let nextNodeId = this.lectureState.node.next[answer];
-      this.advance(nextNodeId);
+      if (nextNodeId == null) alert("You have finished this lecture - congratulations!")
+      else this.advance(nextNodeId);
     },
     createPlayer: function () {
       return videoPlayer;
