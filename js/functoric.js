@@ -75,7 +75,7 @@ function getFunctoric(videos, videoPlayer) {
       }
       let nextNodeId = this.lectureState.node.next;
       if (nextNodeId == null) alert("You have finished this lecture - congratulations!")
-      this.advance(nextNodeId);
+      else this.advance(nextNodeId);
     },
     onQuestionAnswered: function () {
       // TODO: do some sort of consistency check here
