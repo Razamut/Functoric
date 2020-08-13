@@ -160,8 +160,8 @@ function getFunctoric(videos, videoPlayer) {
               "b": "No",
             },
             next: {
-              "a": "V2",
-              "b": "Q1.1",
+              "a": "Q1.1",
+              "b": "V2",
             }
           },
           "Q1.1": {
