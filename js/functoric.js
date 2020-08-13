@@ -1,4 +1,4 @@
-function getFunctoric(videos, videoPlayer) {
+function getFunctoric(videos, videoPlayer, media_div, jq) {
   return {
     player: null,
     lectureState: {
@@ -11,6 +11,7 @@ function getFunctoric(videos, videoPlayer) {
       this.lectureState.lecture = lecture;
       this.showLectureTitle(lecture.title);
       this.player = this.createPlayer();
+      media_div.show();
       this.advance(lecture.entryPoint);
     },
     advance: function (nodeId) {
@@ -22,6 +23,7 @@ function getFunctoric(videos, videoPlayer) {
       this.lectureState.generation++;
       this.lectureState.lecture = lecture;
       this.lectureState.node = node;
+      this.hideQuestion();
       switch (node.type) {
         case "Video": {
           this.player.play(node.url, 136000, this.onVideoFinished.bind(this, this.snapshot()))
@@ -52,8 +54,12 @@ function getFunctoric(videos, videoPlayer) {
       document.getElementById("lecture-title").innerHTML = title;
     },
     showQuestion: function (questionNode) {
-      document.getElementById("question-prompt").innerHTML = questionNode.prompt;
+      let questionElement = document.getElementById("question-prompt");
+      jq("#question-prompt").show();
+      questionElement.innerHTML = questionNode.prompt;
       let answersElement = document.getElementById("question-answers");
+      jq("#question-answers").show();
+      jq("#answer-question").show();
       answersElement.innerHTML = "";
       for (let answer in questionNode.answers) {
         let answerElement = document.createElement("input");
@@ -67,6 +73,11 @@ function getFunctoric(videos, videoPlayer) {
         answersElement.appendChild(labelElement);
         answersElement.appendChild(document.createElement("br"))
       }
+    },
+    hideQuestion: function () {
+      jq("#question-prompt").hide();
+      jq("#question-answers").hide();
+      jq("#answer-question").hide();
     },
     onVideoFinished: function (snapshot) {
       if (this.lectureState.generation !== snapshot.generation) {
@@ -88,7 +99,6 @@ function getFunctoric(videos, videoPlayer) {
       this.advance(nextNodeId);
     },
     createPlayer: function () {
-      // TODO: call sebastian's code
       return videoPlayer;
     },
     lectures: {
@@ -98,10 +108,10 @@ function getFunctoric(videos, videoPlayer) {
         nodes: {
           "V0": {
             type: "Video",
-            url: videos[0], // TODO: add video url here
-            next: "Q0"
+            url: videos[0],
+            next: "Q0.0"
           },
-          "Q0": {
+          "Q0.0": {
             type: "Question",
             prompt: "How many conditions must the family of open subsets of a topological space satisfy?",
             answers: {
@@ -111,13 +121,13 @@ function getFunctoric(videos, videoPlayer) {
               "d": "4"
             },
             next: {
-              "a": "Q1", // <-- This is the right answer! So we go to the Q1 so the student can answer more
-              "b": "V1", // <-- This is the wrong answer! So we go to the V1 so the student can learn more
-              "c": "V1", // <-- This is the wrong answer! So we go to the V1 so the student can learn more
-              "d": "V1"  // <-- This is the wrong answer! So we go to the V1 so the student can learn more
+              "a": "Q0.1",
+              "b": "V1",
+              "c": "V1",
+              "d": "V1"
             }
           },
-          "Q1": {
+          "Q0.1": {
             type: "Question",
             prompt: "The empty set, is by definition a member of the family of open subsets of a topological space.",
             answers: {
@@ -126,18 +136,119 @@ function getFunctoric(videos, videoPlayer) {
               "c": "Neither"
             },
             next: {
-              "a": "V1", // <-- This is the right answer! So we go to the Q1 so the student can answer more
-              "b": "V1", // <-- This is the wrong answer! So we go to the V1 so the student can learn more
-              "c": "Q2", // <-- This is the wrong answer! So we go to the V1 so the student can learn more
+              "a": "V1",
+              "b": "V1",
+              "c": "Q0.2",
             }
           },
-          // TODO: Enter the remainder of the V1 questions here: Q1, Q2
+          "Q0.2": {
+            type: "Question",
+            prompt: "If for any two distinct points p1, p2, in a topological space M, we can always find open neighborhoods p1 ε Ω1, and p2 ε Ω2 such that Ω1 ∩ Ω2 = O, the topological space M is said to be:",
+            answers: {
+              "a": "Paracompact",
+              "b": "Connected",
+              "c": "Hausdorff",
+              "d": "Differentiable"
+            },
+            next: {
+              "a": "V1",
+              "b": "V1",
+              "c": "V2",
+              "d": "V1",
+            }
+          },
           "V1": {
             type: "Video",
-            url: videos[5], // TODO: add video url here
-            next: "Q3"
-          }
-          // TODO: Enter the remainder of the nodes here...
+            url: videos[1],
+            next: "Q1.0"
+          },
+          "Q1.0": {
+            type: "Question",
+            prompt: "Do you know what an open covering is?",
+            answers: {
+              "a": "Yes",
+              "b": "No",
+            },
+            next: {
+              "a": "V2",
+              "b": "Q1.1",
+            }
+          },
+          "Q1.1": {
+            type: "Question",
+            prompt: "When is a covering locally finite?",
+            answers: {
+              "a": "When there are finite number of open sets in the covering",
+              "b": "When every point has an open neighborhood in the covering",
+              "c": "When every two distinct points have non intersecting neighborhoods belonging to the covering",
+              "d": "When every point has a neighborhood that intersects only finitely many members of the covering"
+            },
+            next: {
+              "a": "V2",
+              "b": "V2",
+              "c": "V2",
+              "d": "V3",
+            }
+          },
+          "V2": {
+            type: "Video",
+            url: videos[2],
+            next: "Q2.0"
+          },
+          "Q2.0": {
+            type: "Question",
+            prompt: "For a topological space M, if every open covering has a locally finite refinement, M is said to be:",
+            answers: {
+              "a": "Finite",
+              "b": "Locally refined",
+              "c": "Paracompact",
+              "d": "Continuous"
+            },
+            next: {
+              "a": "V3",
+              "b": "V3",
+              "c": "V4",
+              "d": "V3",
+            }
+          },
+          "V3": {
+            type: "Video",
+            url: videos[3],
+            next: "Q2.0"
+          },
+          "Q3.0": {
+            type: "Question",
+            prompt: "When is a map between two topological spaces f: M → N said to be continuous?",
+            answers: {
+              "a": "When is a map between two topological spaces f: M → N said to be continuous?",
+              "b": "When the pre-image of every open set in N is also open in M.",
+              "c": "When the map f has an inverse",
+              "d": "When the map f can be differentiated at a point in M"
+            },
+            next: {
+              "a": "V4",
+              "b": "Q3.1",
+              "c": "V4",
+              "d": "V4",
+            }
+          },
+          "Q3.1": {
+            type: "Question",
+            prompt: "Can you articulate what a homeomorphism is?",
+            answers: {
+              "a": "No",
+              "b": "Yes",
+            },
+            next: {
+              "a": "Q3.1",
+              "b": "V4",
+            }
+          },
+          "V4": {
+            type: "Video",
+            url: videos[4],
+            next: null
+          },
         }
       }
     }

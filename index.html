@@ -71,11 +71,13 @@
       videoPlayer.stop()
     });
     var body = $("body")
-    body.append(media)
-    body.append(play)
-    body.append(stop)
+    var media_div = $("<div>");
+    media_div.hide();
+    media_div.append($("<div>").append(media))
+    //media_div.append($("<div>").append(play).append(stop))
+    body.append(media_div)
 
-    var Functoric = getFunctoric(videos, videoPlayer);
+    var Functoric = getFunctoric(videos, videoPlayer, media_div, $);
 
 
   </script>
@@ -85,7 +87,7 @@
   <div id="player"></div>
   <div id="question-prompt"></div>
   <form id="question-answers"></form>
-  <input type="button" value="Answer Question" onclick="Functoric.onQuestionAnswered()"/>
+  <input id="answer-question" type="button" value="Answer Question" onclick="Functoric.onQuestionAnswered()"/>
 </body>
 
 </html>
