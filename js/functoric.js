@@ -105,7 +105,7 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
     },
     lectures: {
       "lecture0": {
-        title: "Riemannian Geometry",
+        title: "Intro: Riemannian Geometry",
         entryPoint: "V0",
         nodes: {
           "V0": {
@@ -216,13 +216,13 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
           "V3": {
             type: "Video",
             url: videos[3],
-            next: "Q2.0"
+            next: "Q3.0"
           },
           "Q3.0": {
             type: "Question",
             prompt: "When is a map between two topological spaces f: M → N said to be continuous?",
             answers: {
-              "a": "When is a map between two topological spaces f: M → N said to be continuous?",
+              "a": "When at least one of the spaces M, or N continuous?",
               "b": "When the pre-image of every open set in N is also open in M.",
               "c": "When the map f has an inverse",
               "d": "When the map f can be differentiated at a point in M"
@@ -249,7 +249,7 @@ function getFunctoric(videos, videoPlayer, media_div, jq) {
           "V4": {
             type: "Video",
             url: videos[4],
-            next: null
+            next: "V5"
           },
           "V5": {
             type: "Video",
